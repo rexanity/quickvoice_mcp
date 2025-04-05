@@ -1,0 +1,1 @@
+"""QuickVoice MCP Server package.""" 
