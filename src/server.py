@@ -77,8 +77,11 @@ def initiate_call(phone_number: str, context: str, instruction: str) -> Dict[str
     
     headers = {}
     if authorization:
-        headers["authorization"] = authorization
-        logger.debug("Added authorization header")
+        headers["authorization"] = f"Bearer {authorization}"
+        logger.debug("Added Bearer token authorization header")
+    else:
+        logger.error("No authorization token available")
+        raise ValueError("API key must be provided in QUICKVOICE_API_KEY environment variable")
     
     payload = {
         "agent_id": agent_id,

@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "QuickVoice": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "QUICKVOICE_AGENT_ID",
+        "-e",
+        "QUICKVOICE_API_KEY",
+        "quickvoice-mcp"
+      ],
+      "env": {
+        "QUICKVOICE_AGENT_ID": "",
+        "QUICKVOICE_API_KEY": ""
+      }
+    }
+  }
+}
