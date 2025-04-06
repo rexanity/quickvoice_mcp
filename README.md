@@ -18,56 +18,79 @@ python -m src.server
 
 ## Available Features
 
-- **Addition Tool**: Adds two numbers together
-- **Greeting Resource**: Get a personalized greeting at `greeting://{name}`
 - **Initiate Call Tool**: Make outbound calls using QuickVoice AI agents
+  - Calls a phone number with specific context and instructions
+  - Includes automatic retry logic for API calls
 
 ## Configuration
 
 You can configure your QuickVoice API credentials in one of the following ways:
 
-### 1. MCP Config File
-
-Create an MCP config file at `~/.config/mcp/config.json`:
-
-```json
-{
-  "quickvoice.agent_id": "your-agent-id",
-  "quickvoice.authorization": "your-api-key"
-}
-```
-
-### 2. Environment Variables
+### 1. Environment Variables
 
 Set the following environment variables:
 
 ```bash
 export QUICKVOICE_AGENT_ID="your-agent-id"
 export QUICKVOICE_API_KEY="your-api-key"
+export QUICKVOICE_API_ENDPOINT="http://your-api-endpoint" # Optional, defaults to http://localhost:8000
+export LOG_LEVEL="INFO" # Optional, defaults to INFO
 ```
 
-### 3. Direct Parameter Passing
+### 2. MCP Config File
 
-Pass credentials directly when calling the function:
+Create an MCP config file by copying the example:
+
+```bash
+cp mcp_config.json.example ~/.config/mcp/config.json
+```
+
+Then update the values in the config file:
+
+```json
+{
+  "mcpServers": {
+    "QuickVoice": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "QUICKVOICE_AGENT_ID",
+        "-e",
+        "QUICKVOICE_API_KEY",
+        "quickvoice-mcp"
+      ],
+      "env": {
+        "QUICKVOICE_AGENT_ID": "your-agent-id",
+        "QUICKVOICE_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+## Usage Examples
+
+### Initiating a Call
 
 ```python
 response = initiate_call(
     phone_number="1234567890",
-    context="Customer call",
-    instruction="Follow up on recent order",
-    agent_id="your-agent-id",
-    authorization="your-api-key"
+    context="Customer information and relevant details",
+    instruction="Ask about their dinner plans"
 )
 ```
 
 ## Development
 
-This project uses Poetry for dependency management.
+This project uses standard Python dependency management.
 
 ```bash
 # Install dependencies
-poetry install
+pip install -r requirements.txt
 
 # Run the server in development mode
-poetry run python -m src.server
+python -m src.server
 ```
