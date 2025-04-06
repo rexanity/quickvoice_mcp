@@ -146,7 +146,7 @@ python -m src.server
 docker build -t quickvoice-mcp-dev --target development .
 
 # Run with mounted source code for live reloading
-docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp-dev
+docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" -e QUICKVOICE_API_ENDPOINT="http://host.docker.internal:8000" quickvoice-mcp-dev
 ```
 
 > Note: While the `:latest` tag is implied when no tag is specified, using explicit tags (like `:dev` or `:1.0.0`) is recommended for production environments to ensure version stability.

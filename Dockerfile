@@ -33,7 +33,6 @@ RUN mkdir -p /var/log/quickvoice-mcp
 COPY src/ ./src/
 
 # Set environment variables (these can be overridden at runtime)
-ENV QUICKVOICE_API_ENDPOINT=http://host.docker.internal:8000
 ENV PYTHONPATH=/app
 ENV LOG_LEVEL=INFO
 ENV LOG_DIR=/var/log/quickvoice-mcp
