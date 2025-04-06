@@ -133,7 +133,7 @@ if __name__ == "__main__":
     
     logger.info("Starting QuickVoice MCP Server")
     logger.info(f"Log level set to {log_level}")
-    logger.info(f"API Endpoint: {os.environ.get('QUICKVOICE_API_ENDPOINT', 'http://localhost:8000')}")
+    logger.info(f"API Endpoint: {os.environ.get('QUICKVOICE_API_ENDPOINT', 'https://api.quickvoice.app')}")
     
     # Run the server on default host and port
     mcp.run() 
