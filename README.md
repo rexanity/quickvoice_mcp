@@ -26,11 +26,11 @@ pip install -e .
 ### Option 3: Using Docker
 
 ```bash
-# Build the Docker image
-docker build -t quickvoice-mcp .
+# Pull the Docker image
+docker pull rexanity/quickvoice-mcp
 
 # Run the container
-docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp
+docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" rexanity/quickvoice-mcp
 ```
 
 ## Running the Server
@@ -47,7 +47,7 @@ python -m src.server
 
 ### Using Docker
 ```bash
-docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp
+docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" rexanity/quickvoice-mcp
 ```
 
 ## Available Features
@@ -94,7 +94,7 @@ Then update the values in the config file:
         "QUICKVOICE_AGENT_ID",
         "-e",
         "QUICKVOICE_API_KEY",
-        "quickvoice-mcp"
+        "rexanity/quickvoice-mcp"
       ],
       "env": {
         "QUICKVOICE_AGENT_ID": "your-agent-id",
@@ -132,8 +132,8 @@ poetry run python -m src.server
 ### Standard Python
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies from pyproject.toml
+pip install .
 
 # Run the server in development mode
 python -m src.server
@@ -142,9 +142,17 @@ python -m src.server
 ### Docker Development
 
 ```bash
-# Build with development settings
-docker build -t quickvoice-mcp:dev --target development .
+# Build the development image locally
+docker build -t quickvoice-mcp-dev --target development .
 
 # Run with mounted source code for live reloading
-docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp:dev
+docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp-dev
 ```
+
+> Note: While the `:latest` tag is implied when no tag is specified, using explicit tags (like `:dev` or `:1.0.0`) is recommended for production environments to ensure version stability.
+
+## Using with Claude Desktop
+
+For detailed instructions on integrating QuickVoice with Claude Desktop, see [CLAUDE_DESKTOP.md](CLAUDE_DESKTOP.md).
+
+This integration allows you to use Claude to make phone calls using natural language requests.

@@ -10,7 +10,7 @@
         "QUICKVOICE_AGENT_ID",
         "-e",
         "QUICKVOICE_API_KEY",
-        "quickvoice-mcp"
+        "rexanity/quickvoice-mcp"
       ],
       "env": {
         "QUICKVOICE_AGENT_ID": "",
