@@ -71,7 +71,7 @@ def initiate_call(phone_number: str, context: str, instruction: str) -> Dict[str
         logger.warning("No API key provided in QUICKVOICE_API_KEY")
     
     # Get API endpoint from environment or use default
-    api_endpoint = os.environ.get("QUICKVOICE_API_ENDPOINT", "http://localhost:8000")
+    api_endpoint = os.environ.get("QUICKVOICE_API_ENDPOINT", "https://api.quickvoice.app")
     url = f"{api_endpoint}/api/calls/initiate"
     logger.debug(f"Using API endpoint: {api_endpoint}")
     
