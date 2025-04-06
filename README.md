@@ -4,16 +4,50 @@ A MCP server to communicate with QuickVoice AI Voice agents.
 
 ## Installation
 
+### Option 1: Using Poetry (Recommended for Development)
+
+```bash
+# Install Poetry if you don't have it
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Install dependencies
+poetry install
+
+# Activate the virtual environment
+poetry shell
+```
+
+### Option 2: Using Pip
+
 ```bash
 pip install -e .
 ```
 
-## Running the Server
-
-Start the MCP server:
+### Option 3: Using Docker
 
 ```bash
+# Build the Docker image
+docker build -t quickvoice-mcp .
+
+# Run the container
+docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp
+```
+
+## Running the Server
+
+### Using Poetry
+```bash
+poetry run python -m src.server
+```
+
+### Using Python directly
+```bash
 python -m src.server
+```
+
+### Using Docker
+```bash
+docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp
 ```
 
 ## Available Features
@@ -85,7 +119,17 @@ response = initiate_call(
 
 ## Development
 
-This project uses standard Python dependency management.
+### Poetry (Recommended)
+
+```bash
+# Install dependencies
+poetry install
+
+# Run the server in development mode
+poetry run python -m src.server
+```
+
+### Standard Python
 
 ```bash
 # Install dependencies
@@ -93,4 +137,14 @@ pip install -r requirements.txt
 
 # Run the server in development mode
 python -m src.server
+```
+
+### Docker Development
+
+```bash
+# Build with development settings
+docker build -t quickvoice-mcp:dev --target development .
+
+# Run with mounted source code for live reloading
+docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" quickvoice-mcp:dev
 ```
