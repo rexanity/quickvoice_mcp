@@ -71,6 +71,8 @@ Try asking Claude:
 - "Make a call to check if a restaurant has availability for dinner tonight"
 - "Call this number and ask about their business hours"
 
+<img width="856" alt="Image" src="https://github.com/user-attachments/assets/c88fadd4-5789-43d9-8203-1118f45f0b49" />
+
 ⚠️ **Note**: Using QuickVoice will consume API credits based on your account's billing terms.
 
 For detailed instructions on integrating QuickVoice with Claude Desktop, see [CLAUDE_DESKTOP.md](CLAUDE_DESKTOP.md).
