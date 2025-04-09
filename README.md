@@ -10,32 +10,74 @@ A MCP server to communicate with QuickVoice AI Voice agents.
 ## 🚀 Quickstart
 
 1. Get your QuickVoice API credentials (agent ID and API key)
-2. Choose your installation method below
-3. Configure using environment variables or MCP config
-4. Start making AI phone calls with Claude Desktop!
+2. Set up Claude Desktop with QuickVoice MCP
+3. Start making AI phone calls with natural language prompts
 
-## Installation
+## QuickVoice.app Web Interface
 
-### Option 1: Using Poetry (Recommended for Development)
+### Accessing the Dashboard
+1. Go to [quickvoice.app](https://quickvoice.app) and sign in with your credentials
+2. Navigate to the Dashboard to view your agent status, call history, and credit usage
+3. Access the Settings page to manage your API keys and agent configuration
 
-```bash
-# Install Poetry if you don't have it
-curl -sSL https://install.python-poetry.org | python3 -
+### Managing Your Agent
+- **Create/Edit Agent**: Configure your agent's voice, behavior, and response patterns
+- **Conversation History**: Review past calls and analyze conversation transcripts
+- **Analytics**: Track call performance metrics and user engagement
 
-# Install dependencies
-poetry install
+### Getting API Credentials
+1. Go to Settings > API
+2. Generate a new API key if you don't have one
+3. Copy your Agent ID and API Key to use with the MCP integration
 
-# Activate the virtual environment
-poetry shell
+## 📱 Using with Claude Desktop
+
+### Claude Desktop Setup
+
+1. Open Claude Desktop
+2. Go to Settings > Developer > Edit Config
+3. Add the following to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "QuickVoice": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "QUICKVOICE_AGENT_ID",
+        "-e",
+        "QUICKVOICE_API_KEY",
+        "rexanity/quickvoice-mcp"
+      ],
+      "env": {
+        "QUICKVOICE_AGENT_ID": "your-agent-id",
+        "QUICKVOICE_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
 ```
 
-### Option 2: Using Pip
+### Example Prompts
 
-```bash
-pip install -e .
-```
+Try asking Claude:
 
-### Option 3: Using Docker
+- "Call 555-123-4567 and schedule an appointment for tomorrow at 2pm"
+- "Call my customer to follow up on their order status"
+- "Make a call to check if a restaurant has availability for dinner tonight"
+- "Call this number and ask about their business hours"
+
+⚠️ **Note**: Using QuickVoice will consume API credits based on your account's billing terms.
+
+For detailed instructions on integrating QuickVoice with Claude Desktop, see [CLAUDE_DESKTOP.md](CLAUDE_DESKTOP.md).
+
+## Installation Options
+
+### Docker (Recommended)
 
 ```bash
 # Pull the Docker image
@@ -45,21 +87,11 @@ docker pull rexanity/quickvoice-mcp
 docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" rexanity/quickvoice-mcp
 ```
 
-## Running the Server
+### Using Pip
 
-### Using Poetry
 ```bash
-poetry run python -m src.server
-```
-
-### Using Python directly
-```bash
+pip install -e .
 python -m src.server
-```
-
-### Using Docker
-```bash
-docker run -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_API_KEY="your-api-key" rexanity/quickvoice-mcp
 ```
 
 ## Available Features
@@ -117,49 +149,6 @@ Then update the values in the config file:
 }
 ```
 
-## MCP Client Setup
-
-### Claude Desktop Setup
-
-1. Open Claude Desktop
-2. Go to Settings > Developer > Edit Config
-3. Add the following to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "QuickVoice": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "QUICKVOICE_AGENT_ID",
-        "-e",
-        "QUICKVOICE_API_KEY",
-        "rexanity/quickvoice-mcp"
-      ],
-      "env": {
-        "QUICKVOICE_AGENT_ID": "your-agent-id",
-        "QUICKVOICE_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-## 📱 Example Prompts
-
-Try asking Claude:
-
-- "Call 555-123-4567 and schedule an appointment for tomorrow at 2pm"
-- "Call my customer to follow up on their order status"
-- "Make a call to check if a restaurant has availability for dinner tonight"
-- "Call this number and ask about their business hours"
-
-⚠️ **Note**: Using QuickVoice will consume API credits based on your account's billing terms.
-
 ## Usage Examples
 
 ### Initiating a Call
@@ -172,26 +161,22 @@ response = initiate_call(
 )
 ```
 
-## Development
+## 🔧 Development
 
-### Poetry (Recommended)
+### Poetry Setup
 
 ```bash
+# Install Poetry if you don't have it
+curl -sSL https://install.python-poetry.org | python3 -
+
 # Install dependencies
 poetry install
 
+# Activate the virtual environment
+poetry shell
+
 # Run the server in development mode
 poetry run python -m src.server
-```
-
-### Standard Python
-
-```bash
-# Install dependencies from pyproject.toml
-pip install .
-
-# Run the server in development mode
-python -m src.server
 ```
 
 ### Docker Development
@@ -223,9 +208,3 @@ docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_A
 - Confirm the phone number format is correct (include country code if necessary)
 - Ensure your QuickVoice account has sufficient credits
 - Check the API response for specific error messages
-
-## Using with Claude Desktop
-
-For detailed instructions on integrating QuickVoice with Claude Desktop, see [CLAUDE_DESKTOP.md](CLAUDE_DESKTOP.md).
-
-This integration allows you to use Claude to make phone calls using natural language requests.
