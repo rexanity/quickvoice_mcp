@@ -1,7 +1,9 @@
-# QuickVoice MCP
+![Image](https://github.com/user-attachments/assets/5948811b-0265-4e48-809a-7dca01839905)
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-Available-blue.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/rexanity/quickvoice-mcp)
+
+# QuickVoice MCP
 
 A MCP server to communicate with QuickVoice AI Voice agents.
 
