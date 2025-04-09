@@ -1,6 +1,16 @@
 # QuickVoice MCP
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-Available-blue.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/rexanity/quickvoice-mcp)
+
 A MCP server to communicate with QuickVoice AI Voice agents.
+
+## 🚀 Quickstart
+
+1. Get your QuickVoice API credentials (agent ID and API key)
+2. Choose your installation method below
+3. Configure using environment variables or MCP config
+4. Start making AI phone calls with Claude Desktop!
 
 ## Installation
 
@@ -105,6 +115,49 @@ Then update the values in the config file:
 }
 ```
 
+## MCP Client Setup
+
+### Claude Desktop Setup
+
+1. Open Claude Desktop
+2. Go to Settings > Developer > Edit Config
+3. Add the following to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "QuickVoice": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "QUICKVOICE_AGENT_ID",
+        "-e",
+        "QUICKVOICE_API_KEY",
+        "rexanity/quickvoice-mcp"
+      ],
+      "env": {
+        "QUICKVOICE_AGENT_ID": "your-agent-id",
+        "QUICKVOICE_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+## 📱 Example Prompts
+
+Try asking Claude:
+
+- "Call 555-123-4567 and schedule an appointment for tomorrow at 2pm"
+- "Call my customer to follow up on their order status"
+- "Make a call to check if a restaurant has availability for dinner tonight"
+- "Call this number and ask about their business hours"
+
+⚠️ **Note**: Using QuickVoice will consume API credits based on your account's billing terms.
+
 ## Usage Examples
 
 ### Initiating a Call
@@ -150,6 +203,24 @@ docker run -v $(pwd):/app -e QUICKVOICE_AGENT_ID="your-agent-id" -e QUICKVOICE_A
 ```
 
 > Note: While the `:latest` tag is implied when no tag is specified, using explicit tags (like `:dev` or `:1.0.0`) is recommended for production environments to ensure version stability.
+
+## 🔍 Troubleshooting
+
+### Log Locations
+- **macOS**: `~/Library/Logs/Claude/mcp-server-quickvoice.log`
+- **Windows**: `%APPDATA%\Claude\logs\mcp-server-quickvoice.log`
+
+### Common Issues
+
+#### API Connection Errors
+- Verify your API credentials are correct
+- Check that your API endpoint is reachable from your environment
+- For Docker: ensure `host.docker.internal` is used for local development
+
+#### Call Not Initiating
+- Confirm the phone number format is correct (include country code if necessary)
+- Ensure your QuickVoice account has sufficient credits
+- Check the API response for specific error messages
 
 ## Using with Claude Desktop
 
